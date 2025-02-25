@@ -1,6 +1,10 @@
 {{- define "main" }}
 <div class="content">
-	{{ with .Params.description }}<div>{{ . | markdownify }}</div>{{ end }}
+  {{ partial "breadcrumbs.html" . }}
+  {{ with .Params.description }}<div class="page-description">{{ . | markdownify }}</div>{{ end }}
   {{- .Content }}
+  <div class="page-footer">
+    <p>Last modified: {{ .Lastmod.Format "January 2, 2006" }}</p>
+  </div>
 </div>
 {{- end }}

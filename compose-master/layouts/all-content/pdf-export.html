@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ .Site.Title }} - Complete Documentation</title>
+    <style>
+        /* PDF-optimized styles */
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        h1 { page-break-before: always; }
+        h1:first-of-type { page-break-before: avoid; }
+        .content img { max-width: 100%; height: auto; }
+        .toc a { text-decoration: none; color: #000; }
+        .toc-item { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <!-- Table of Contents -->
+    <h1>Table of Contents</h1>
+    <div class="toc">
+        {{ range .Site.RegularPages }}
+            {{ if not .Params.excludeFromPdf }}
+            <div class="toc-item">
+                <a href="#{{ .File.UniqueID }}">{{ .Title }}</a>
+            </div>
+            {{ end }}
+        {{ end }}
+    </div>
+
+    <!-- Content Pages -->
+    {{ range .Site.RegularPages }}
+        {{ if not .Params.excludeFromPdf }}
+        <h1 id="{{ .File.UniqueID }}">{{ .Title }}</h1>
+        <div class="content">
+            {{ .Content }}
+        </div>
+        {{ end }}
+    {{ end }}
+</body>
+</html>
